@@ -1,5 +1,7 @@
 # COL362/632 Assignment-3
 
+[Assignment Document](https://docs.google.com/document/d/14St9wFD6lcLRQjLlQQo38yEBuI2Jo9BXFG3bqBuw2uo/edit?usp=sharing)
+
 ## Requirements
 - Java 11
 - Maven 3.9.x
@@ -15,7 +17,8 @@
 6. Import the project into your favorite editor. I strongly recommend Intellj.
     
 ## Assignment Tasks
-### Implement B+Tree Index.
+
+### 1. Implement B+Tree Index.
 The starter code has been provided in ``in/ac/iitd/db362/index/bplustree/BPlusTreeIndex.java``
 
 You should further develop this class by completing all TODOs. Your B+tree index should be **right bias**, and should not have any duplicates in non-leaf nodes. The node structure used in the B+Tree is specified in ``in/ac/iitd/db362/index/bplustree/Node.java``
@@ -23,18 +26,18 @@ You should further develop this class by completing all TODOs. Your B+tree index
 Study the node structure carefully and do not modify it. Note that the test cases will be based on B+tree logic discussed in the class.
 
   
-### Implement Hash Index based on Extendible Hashing
+### 2. Implement Hash Index based on Extendible Hashing
 The starter code has been provided in ``in/ac/iitd/db362/index/hashindex/ExtendibleHashing.java``
 
 You should further develop this class by completing all TODOs. There is a hashing scheme provided in ``in/ac/iitd/db362/index/hashindex/HashingScheme.java``. The scheme includes a ``getDirectoryIndex`` method that returns the offset of the bucket address table based on globaldepth higher order bits. Your logic should use this hashing scheme. Do not modify the hashing scheme. Further, the index uses a bucket structure specified in ``in/ac/iitd/db362/index/hashindex/Bucket.java``. Study the bucket structure carefully and do not modify it. The test cases will be based on the hashing logic discussed in the class.
 
  
-### Implement Search using BitMap Index.
+### 3. Implement Search using BitMap Index.
 The starter code has been provided in ``in/ac/iitd/db362/index/BitmapIndex.java``
 
 The BitMap index is backed by array of 32 bit integers, as Java does not natively support bit vectors. Study the insertion logic carefully to understand how this is done. You should implement the search functionality for this index.
  
-### Implement Query Processor
+### 4. Implement Query Processor
 The starter code has been provided in ``in/ac/iitd/db362/processor/QueryEvaluator.java``.
 
 You must complete this class by implementing the ``evaluateQuery`` method. **Note that you implementation must  use the** ``evaluatePredicate`` method for evaluating all predicates in a query. Do not change or remove this function.
