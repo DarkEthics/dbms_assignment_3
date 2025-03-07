@@ -2,6 +2,8 @@ package in.ac.iitd.db362.index.bplustree;
 
 import in.ac.iitd.db362.index.Index;
 import in.ac.iitd.db362.parser.QueryNode;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
@@ -10,6 +12,8 @@ import java.util.List;
  * @param <T> The type of the key.
  */
 public class BPlusTreeIndex<T> implements Index<T> {
+
+    protected static final Logger logger = LogManager.getLogger();
 
     // Note: Do not rename this variable; the test cases will set this when testing. You can however initialize it with a
     // different value for testing your code.
@@ -32,7 +36,7 @@ public class BPlusTreeIndex<T> implements Index<T> {
 
     @Override
     public List<Integer> evaluate(QueryNode node) {
-        System.out.println("Evaluating predicate using B+ Tree index on attribute " + attribute + " for operator " + node.operator);
+        logger.info("Evaluating predicate using B+ Tree index on attribute " + attribute + " for operator " + node.operator);
         //TODO: Implement me!
         return null;
     }
@@ -95,5 +99,11 @@ public class BPlusTreeIndex<T> implements Index<T> {
      */
     public int getOrder() {
         return order;
+    }
+
+
+    @Override
+    public String prettyName() {
+        return "B+Tree Index";
     }
 }

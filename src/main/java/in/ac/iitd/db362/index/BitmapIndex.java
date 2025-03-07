@@ -1,6 +1,8 @@
 package in.ac.iitd.db362.index;
 
 import in.ac.iitd.db362.parser.QueryNode;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 
 import java.util.HashMap;
@@ -14,7 +16,9 @@ import java.util.Map;
  * @param <T> The type of the key.
  */
 public class BitmapIndex<T> implements Index<T> {
-//public class BitmapIndex<T extends Comparable<T>> implements Index<T> {
+
+    protected static final Logger logger = LogManager.getLogger();
+
     private String attribute;
     private int maxRowId;
 
@@ -66,7 +70,7 @@ public class BitmapIndex<T> implements Index<T> {
 
     @Override
     public List<Integer> evaluate(QueryNode node) {
-        System.out.println("Evaluating predicate using Bitmap index on attribute " + attribute + " for operator " + node.operator);
+        logger.info("Evaluating predicate using Bitmap index on attribute " + attribute + " for operator " + node.operator);
         // TODO: implement me
         return null;
     }
@@ -75,5 +79,10 @@ public class BitmapIndex<T> implements Index<T> {
     public List<Integer> search(T key) {
     //TODO: Implement me!
         return null;
+    }
+
+    @Override
+    public String prettyName() {
+        return "BitMap Index";
     }
 }

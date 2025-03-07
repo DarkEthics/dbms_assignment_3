@@ -30,6 +30,9 @@ public class QueryEvaluator {
         //Let's get an index to work with
         Catalog catalog = Catalog.getInstance();
         Index index = catalog.getIndex(node.attribute, node.operator);
+
+        logger.info("Using " + index.prettyName());
+
         return index.evaluate(node);
     }
 

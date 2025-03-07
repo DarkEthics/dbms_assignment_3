@@ -11,7 +11,7 @@ import java.util.List;
  * @param <T> The type of the key stored in the index.
  */
 public interface Index<T> {
-//public interface Index<T extends Comparable<T>> {
+
     /**
      * Evaluate the predicate represented by the query node using this index.
      *
@@ -42,5 +42,8 @@ public interface Index<T> {
      * @return A list of row IDs associated with the key.
      */
     List<Integer> search(T key);
+
+
+    String prettyName();
 
 }

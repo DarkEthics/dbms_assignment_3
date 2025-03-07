@@ -2,6 +2,8 @@ package in.ac.iitd.db362.index.hashindex;
 
 import in.ac.iitd.db362.index.Index;
 import in.ac.iitd.db362.parser.QueryNode;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
@@ -12,6 +14,8 @@ import java.util.List;
  */
 
 public class ExtendibleHashing<T> implements Index<T> {
+
+    protected static final Logger logger = LogManager.getLogger();
     private String attribute; // attribute that we are indexing
 
    // Note: Do not rename the variable! You can initialize it to a different value for testing your code.
@@ -43,7 +47,7 @@ public class ExtendibleHashing<T> implements Index<T> {
 
     @Override
     public List<Integer> evaluate(QueryNode node) {
-        System.out.println("Evaluating predicate using Hash index on attribute " + attribute + " for operator " + node.operator);
+        logger.info("Evaluating predicate using Hash index on attribute " + attribute + " for operator " + node.operator);
         // TODO: Implement me!
         return null;
     }
@@ -95,6 +99,11 @@ public class ExtendibleHashing<T> implements Index<T> {
 
     public void printTable() {
         // TODO: You don't have to, but its good to print for small scale debugging
+    }
+
+    @Override
+    public String prettyName() {
+        return "Hash Index";
     }
 
 }
