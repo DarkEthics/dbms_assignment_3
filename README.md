@@ -11,9 +11,8 @@
 ## Clone the project
 1. Create directory ````mkdir path/to/assignment_3/````
 2. cd into the newly created directory by ````cd path/to/assignment_3/````
-3. Run ```git clone https://git.iitd.ac.in/2402COL362/assignment-3.git .``` to clone the project on your local machine (note the dot when cloning into the newly created directory)
-4. Alternatively, if you have set your ssh keys, use  ````git@git.iitd.ac.in:2402COL362/assignment-3.git .````
-5. Run ``mvn clean install -DskipTest``
+3. Run ```git clone git@git.iitd.ac.in:2402COL362/assignment-3.git .``` to clone the project on your local machine (note the dot when cloning into the newly created directory). You must have set your ssh keys for this.
+4. Run ``mvn clean install -DskipTest``
 6. Import the project into your favorite editor. I strongly recommend Intellj.
     
 ## Assignment Tasks
