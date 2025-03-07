@@ -12,7 +12,6 @@ import java.util.List;
  * Starter code for Extendible Hashing
  * @param <T> The type of the key.
  */
-
 public class ExtendibleHashing<T> implements Index<T> {
 
     protected static final Logger logger = LogManager.getLogger();
@@ -54,7 +53,7 @@ public class ExtendibleHashing<T> implements Index<T> {
 
     @Override
     public void insert(T key, int rowId) {
-        // TODO: Implement insertion logic with bucket splitting
+        // TODO: Implement insertion logic with bucket splitting and/or doubling the address table
     }
 
 
