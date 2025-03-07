@@ -3,27 +3,18 @@ package in.ac.iitd.db362.parser;
 import in.ac.iitd.db362.parser.*;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
 
-//import static junit.framework.TestCase.assertEquals;assertEquals
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class ParserTest {
 
-    // Helper method to parse a query string into a QueryNode.
-    /*private QueryNode parse(String query) {
-        List<Token> tokens = Tokenizer.tokenize(query);
-        Parser parser = new Parser(tokens);
-        return parser.parseExpression();
-    }*/
-
     @Test
     public void testSimplePredicate() {
         String query = "age < 50";
         QueryNode node = Parser.parse(query);
-        Parser.printParseTree(node, 0);
+        //Parser.printParseTree(node, 0);
 
         // Expect a simple predicate: operator LT, attribute "age", value "50"
         assertNotNull(node, "The parse tree should not be null.");
@@ -54,7 +45,7 @@ public class ParserTest {
     public void testBooleanCombination() {
         String query = "(salary > 10000 AND department = HR) OR salary < 10000";
         QueryNode node = Parser.parse(query);
-        Parser.printParseTree(node, 0);
+        //Parser.printParseTree(node, 0);
 
         // Root should be an OR operator.
         assertNotNull(node, "The parse tree should not be null.");
@@ -92,7 +83,7 @@ public class ParserTest {
     public void testNotPredicate() {
         String query = "NOT (department = HR)";
         QueryNode node = Parser.parse(query);
-        Parser.printParseTree(node, 0);
+        //Parser.printParseTree(node, 0);
 
         // Root should be a NOT operator.
         assertNotNull(node, "The parse tree should not be null.");
@@ -110,7 +101,7 @@ public class ParserTest {
     public void testComplexPredicate() {
         String query = "5000 < salary < 10000 AND NOT department = HR OR deparment = BO";
         QueryNode node = Parser.parse(query);
-        Parser.printParseTree(node, 0);
+        //Parser.printParseTree(node, 0);
     }
 }
 

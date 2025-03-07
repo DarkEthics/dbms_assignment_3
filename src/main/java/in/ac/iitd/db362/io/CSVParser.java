@@ -10,6 +10,8 @@ import in.ac.iitd.db362.index.Index;
 import in.ac.iitd.db362.index.bplustree.BPlusTreeIndex;
 import in.ac.iitd.db362.index.hashindex.ExtendibleHashing;
 import in.ac.iitd.db362.index.BitmapIndex;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * CSVParser parses a CSV file where the first line is a header.
@@ -21,6 +23,8 @@ import in.ac.iitd.db362.index.BitmapIndex;
  * As rows are read, values are converted to the appropriate type and inserted into the index.
  */
 public class CSVParser {
+
+    protected static final Logger logger = LogManager.getLogger();
 
     // Helper class to store header metadata.
     private static class ColumnMeta {
@@ -43,6 +47,9 @@ public class CSVParser {
      * @param maxRowId         Maximum row id (used to create Bitmap indexes).
      */
     public static void parseCSV(String filePath, String delimiter, Catalog catalog, Map<String, List<String>> indexesToCreate, int maxRowId) {
+
+        logger.info("Parsing CSV file");
+
         List<ColumnMeta> columns = new ArrayList<>();
         // Use ISO_LOCAL_DATE for date parsing.
         DateTimeFormatter dateFormatter = DateTimeFormatter.ISO_LOCAL_DATE;
@@ -50,7 +57,7 @@ public class CSVParser {
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String headerLine = br.readLine();
             if (headerLine == null) {
-                System.err.println("Empty CSV file.");
+                logger.error("Empty CSV file.");
                 return;
             }
             // Parse header; expected format for each token: "attributeName:attributeType"
@@ -58,13 +65,15 @@ public class CSVParser {
             for (String token : headerTokens) {
                 String[] parts = token.split(":");
                 if (parts.length != 2) {
-                    System.err.println("Invalid header format for token: " + token);
+                    logger.error("Invalid header format for token: " + token);
                     continue;
                 }
                 String attrName = parts[0].trim();
                 String attrType = parts[1].trim();
                 columns.add(new ColumnMeta(attrName, attrType));
             }
+
+            logger.info("Found " + columns.size() + " columns.");
 
             // For each attribute specified in indexesToCreate, create index instances and add them to the catalog.
             // We use the static catalog from BooleanQueryParser.
@@ -78,47 +87,60 @@ public class CSVParser {
                                 // Use Integer for integer type.
                                 if (idxType.equalsIgnoreCase("BPlusTree")) {
                                     catalog.addIndex(col.name, new BPlusTreeIndex<Integer>(col.name));
+                                    logger.info("Initialized a " + idxType + " Index on " + col.name + " of type " + col.type);
                                 } else if (idxType.equalsIgnoreCase("Hash")) {
                                     catalog.addIndex(col.name, new ExtendibleHashing<Integer>(col.name));
+                                    logger.info("Initialized a " + idxType + " Index on " + col.name + " of type " + col.type);
                                 } else if (idxType.equalsIgnoreCase("Bitmap")) {
                                     catalog.addIndex(col.name, new BitmapIndex<Integer>(col.name, maxRowId));
+                                    logger.info("Initialized a " + idxType + " Index on " + col.name + " of type " + col.type);
                                 }
                                 break;
                             case "double":
                                 // Use Double for double type.
                                 if (idxType.equalsIgnoreCase("BPlusTree")) {
                                     catalog.addIndex(col.name, new BPlusTreeIndex<Double>(col.name));
+                                    logger.info("Initialized a " + idxType + " Index on " + col.name + " of type " + col.type);
                                 } else if (idxType.equalsIgnoreCase("Hash")) {
                                     catalog.addIndex(col.name, new ExtendibleHashing<Double>(col.name));
+                                    logger.info("Initialized a " + idxType + " Index on " + col.name + " of type " + col.type);
                                 } else if (idxType.equalsIgnoreCase("Bitmap")) {
                                     catalog.addIndex(col.name, new BitmapIndex<Double>(col.name, maxRowId));
+                                    logger.info("Initialized a " + idxType + " Index on " + col.name + " of type " + col.type);
                                 }
                                 break;
                             case "string":
                                 if (idxType.equalsIgnoreCase("BPlusTree")) {
                                     catalog.addIndex(col.name, new BPlusTreeIndex<String>(col.name));
+                                    logger.info("Initialized a " + idxType + " Index on " + col.name + " of type " + col.type);
                                 } else if (idxType.equalsIgnoreCase("Hash")) {
                                     catalog.addIndex(col.name, new ExtendibleHashing<String>(col.name));
+                                    logger.info("Initialized a " + idxType + " Index on " + col.name + " of type " + col.type);
                                 } else if (idxType.equalsIgnoreCase("Bitmap")) {
                                     catalog.addIndex(col.name, new BitmapIndex<String>(col.name, maxRowId));
+                                    logger.info("Initialized a " + idxType + " Index on " + col.name + " of type " + col.type);
                                 }
                                 break;
                             case "date":
                                 if (idxType.equalsIgnoreCase("BPlusTree")) {
                                     catalog.addIndex(col.name, new BPlusTreeIndex<LocalDate>(col.name));
+                                    logger.info("Initialized a " + idxType + " Index on " + col.name + " of type " + col.type);
                                 } else if (idxType.equalsIgnoreCase("Hash")) {
                                     catalog.addIndex(col.name, new ExtendibleHashing<LocalDate>(col.name));
+                                    logger.info("Initialized a " + idxType + " Index on " + col.name + " of type " + col.type);
                                 } else if (idxType.equalsIgnoreCase("Bitmap")) {
                                     catalog.addIndex(col.name, new BitmapIndex<LocalDate>(col.name, maxRowId));
+                                    logger.info("Initialized a " + idxType + " Index on " + col.name + " of type " + col.type);
                                 }
                                 break;
                             default:
-                                System.err.println("Unsupported attribute type: " + col.type);
+                                logger.error("Unsupported attribute type: " + col.type);
                         }
                     }
                 }
             }
 
+            logger.info("Initialized all indexes. Now parsing the file and creating the indexes");
             // Process each row and insert values into the corresponding indexes.
             int rowId = 0;
             String line;
@@ -152,10 +174,10 @@ public class CSVParser {
                                         idx.insert(rawValue, rowId);
                                         break;
                                     default:
-                                        System.err.println("Unsupported type for conversion: " + col.type);
+                                        logger.error("Unsupported type for conversion: " + col.type);
                                 }
                             } catch (Exception e) {
-                                System.err.println("Error converting value '" + rawValue + "' for attribute " + col.name);
+                                logger.error("Error converting value '" + rawValue + "' for attribute " + col.name);
                                 continue;
                             }
                         }
@@ -172,7 +194,7 @@ public class CSVParser {
                 }
                 rowId++;
             }
-            System.out.println("CSV parsing complete. Total rows processed: " + rowId);
+            logger.info("CSV parsing complete. Total rows processed: " + rowId);
         } catch (IOException e) {
             e.printStackTrace();
         }

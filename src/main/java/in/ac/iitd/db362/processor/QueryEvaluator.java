@@ -5,6 +5,9 @@ import in.ac.iitd.db362.index.Index;
 import in.ac.iitd.db362.parser.Operator;
 import in.ac.iitd.db362.parser.QueryNode;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.*;
 
 /**
@@ -12,9 +15,27 @@ import java.util.*;
  */
 public class QueryEvaluator {
 
+    protected static final Logger logger = LogManager.getLogger();
+
+    /**
+     * Note: do not change or remove this function! This method **must** be called from the evaluateQuery() method
+     * when processing a leaf (predicate) node.
+     * @param node
+     * @return row IDs for which the predicate holds.
+     */
+    private static List<Integer> evaluatePredicate(QueryNode node) {
+        logger.info("Evaluating predicate: " + node.attribute + " " + node.operator + " " + node.value
+                + (node.operator == Operator.RANGE ? " and " + node.secondValue : ""));
+
+        //Let's get an index to work with
+        Catalog catalog = Catalog.getInstance();
+        Index index = catalog.getIndex(node.attribute, node.operator);
+        return index.evaluate(node);
+    }
+
     /**
      * Evaluate the query represented by the parse tree.
-     * For predicate nodes, return a list of row IDs by calling evaluatePredicate() .
+     * For predicate (leaf) nodes, return a list of row IDs by calling evaluatePredicate() .
      * For boolean operators, performs set operations:
      * - AND: Intersection of left and right results.
      * - OR: Union of left and right results.
@@ -31,17 +52,5 @@ public class QueryEvaluator {
         return null;
     }
 
-    /**
-     * Note: do not change or remove this function! This method **must** be called from the evaluateQuery() method
-     * when processing a leaf (predicate) node.
-     */
-    private static List<Integer> evaluatePredicate(QueryNode node) {
-        System.out.println("Evaluating predicate: " + node.attribute + " " + node.operator + " " + node.value
-                + (node.operator == Operator.RANGE ? " and " + node.secondValue : ""));
 
-        //Let's get an index to work with
-        Catalog catalog = Catalog.getInstance();
-        Index index = catalog.getIndex(node.attribute, node.operator);
-        return index.evaluate(node);
-    }
 }
