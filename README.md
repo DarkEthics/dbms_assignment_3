@@ -74,4 +74,4 @@ git diff [COMMITID] > [ENTRYNO].patch
 >Repace [ENTRYNO] with your entry number.
 >Replace [COMMITID] with the one that will be provided to you (this will be provided 2 days before the submission deadline)
 
-**Upload your patch file on Moodle by Friday 28th March 2025 11:59PM**
+**Upload your patch file on Moodle by 26th March 2025 11:59PM**
