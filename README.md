@@ -20,8 +20,8 @@
 ### 1. Implement B+Tree Index.
 The starter code has been provided in ``in/ac/iitd/db362/index/bplustree/BPlusTreeIndex.java``
 
-You should further develop this class by completing all TODOs. Your B+tree index should be **right bias**, and should not have any duplicates in non-leaf nodes. The node structure used in the B+Tree is specified in ``in/ac/iitd/db362/index/bplustree/Node.java``
-
+You should further develop this class by completing all TODOs. Your B+tree index should be **right bias**. The node structure used in the B+Tree is specified in ``in/ac/iitd/db362/index/bplustree/Node.java``
+Duplicate Keys: To handle duplicate keys, exploit the given node structure and implement the duplicate handling approach that allows leaf nodes to spill into overflow nodes. 
 Study the node structure carefully and do not modify it. Note that the test cases will be based on B+tree logic discussed in the class.
 
   
