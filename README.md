@@ -11,9 +11,8 @@
 ## Clone the project
 1. Create directory ````mkdir path/to/assignment_3/````
 2. cd into the newly created directory by ````cd path/to/assignment_3/````
-3. Run ```git clone https://git.iitd.ac.in/2402COL362/assignment-3.git .``` to clone the project on your local machine (note the dot when cloning into the newly created directory)
-4. Alternatively, if you have set your ssh keys, use  ````git@git.iitd.ac.in:2402COL362/assignment-3.git .````
-5. Run ``mvn clean install -DskipTest``
+3. Run ```git clone git@git.iitd.ac.in:2402COL362/assignment-3.git .``` to clone the project on your local machine (note the dot when cloning into the newly created directory). You must have set your ssh keys for this.
+4. Run ``mvn clean install -DskipTest``
 6. Import the project into your favorite editor. I strongly recommend Intellj.
     
 ## Assignment Tasks
@@ -21,8 +20,8 @@
 ### 1. Implement B+Tree Index.
 The starter code has been provided in ``in/ac/iitd/db362/index/bplustree/BPlusTreeIndex.java``
 
-You should further develop this class by completing all TODOs. Your B+tree index should be **right bias**, and should not have any duplicates in non-leaf nodes. The node structure used in the B+Tree is specified in ``in/ac/iitd/db362/index/bplustree/Node.java``
-
+You should further develop this class by completing all TODOs. Your B+tree index should be **right bias**. The node structure used in the B+Tree is specified in ``in/ac/iitd/db362/index/bplustree/Node.java``
+Duplicate Keys: To handle duplicate keys, exploit the given node structure and implement the duplicate handling approach that allows leaf nodes to spill into overflow nodes. 
 Study the node structure carefully and do not modify it. Note that the test cases will be based on B+tree logic discussed in the class.
 
   
@@ -74,4 +73,4 @@ git diff [COMMITID] > [ENTRYNO].patch
 >Repace [ENTRYNO] with your entry number.
 >Replace [COMMITID] with the one that will be provided to you (this will be provided 2 days before the submission deadline)
 
-**Upload your patch file on Moodle by Friday 28th March 2025 11:59PM**
+**Upload your patch file on Moodle by 26th March 2025 11:59PM**
