@@ -34,7 +34,7 @@ public class Node<K, V> {
      */
     Node<K,V> getNext() {
         logger.trace("Called getNext()");
-        logger.trace("Last <K,V>: " + "<" + (K)this.keys.get(keys.size()-1) + "," + (V)this.values.get(keys.size()) + ">");
+        logger.trace("Last <K,V>: " + "<" + (K)this.keys.get(keys.size()-1) + "," + (V)this.values.get(keys.size()-1) + ">");
         assert isLeaf = true;
         return this.next;
     }
