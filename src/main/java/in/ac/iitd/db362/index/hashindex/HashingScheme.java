@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 /**
  * Hashing Scheme for Extendible Hashing. It computes an offset in the bucket address table based on the global depth
- * higher order bits.
+ * least significant bits
  * Note: Do not change this code! Use this hashing scheme in your Extendible Hashing implementation.
  */
 public class HashingScheme {
@@ -32,4 +32,6 @@ public class HashingScheme {
         int hashValue = key.hashCode();
         return getOffset(hashValue, globalDepth);
     }
+
+
 }
