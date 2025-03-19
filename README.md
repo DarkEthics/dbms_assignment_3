@@ -28,7 +28,7 @@ Study the node structure carefully and do not modify it. Note that the test case
 ### 2. Implement Hash Index based on Extendible Hashing
 The starter code has been provided in ``in/ac/iitd/db362/index/hashindex/ExtendibleHashing.java``
 
-You should further develop this class by completing all TODOs. There is a hashing scheme provided in ``in/ac/iitd/db362/index/hashindex/HashingScheme.java``. The scheme includes a ``getDirectoryIndex`` method that returns the offset of the bucket address table based on globaldepth higher order bits. Your logic should use this hashing scheme. Do not modify the hashing scheme. Further, the index uses a bucket structure specified in ``in/ac/iitd/db362/index/hashindex/Bucket.java``. Study the bucket structure carefully and do not modify it. The test cases will be based on the hashing logic discussed in the class.
+You should further develop this class by completing all TODOs. There is a hashing scheme provided in ``in/ac/iitd/db362/index/hashindex/HashingScheme.java``. The scheme includes a ``getDirectoryIndex`` method that returns the offset of the bucket address table based on globaldepth least significant bits. Your logic should use this hashing scheme. Do not modify the hashing scheme. Further, the index uses a bucket structure specified in ``in/ac/iitd/db362/index/hashindex/Bucket.java``. Study the bucket structure carefully and do not modify it. The test cases will be based on the hashing logic discussed in the class.
 
  
 ### 3. Implement Search using BitMap Index.
