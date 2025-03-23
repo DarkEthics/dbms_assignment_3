@@ -57,6 +57,23 @@ public class BPlusTreeIndex<T> implements Index<T> {
     public List<Integer> search(T key) {
         //TODO: Implement me!
         //Note: When searching for a key, use Node's getChild() and getNext() methods. Some test cases may fail otherwise!
+
+        logger.info("searching for key: " + key);
+
+        Node<T,Integer> node = root;
+        while(!node.isLeaf){
+            int idx = 0;
+            while(idx < node.keys.size() && key.compareTo(node.keys.get(idx)) > 0){
+                idx++;
+            }
+            node = node.getChild(idx);
+        }
+        
+        for(int i=0; i < node.keys.size(); i++ ){
+            if(node.keys.get(i).equals(key)){
+                return List.of(node.values.get(i));
+            }
+        }
         return null;
     }
 
@@ -72,6 +89,35 @@ public class BPlusTreeIndex<T> implements Index<T> {
     List<Integer> rangeQuery(T startKey, boolean startInclusive, T endKey, boolean endInclusive) {
         //TODO: Implement me!
         //Note: When searching, use Node's getChild() and getNext() methods. Some test cases may fail otherwise!
+
+        logger.info("Performing range query: " + (startInclusive ? "[" : "(") + startKey + ", " + endKey + (endInclusive ? "]" : ")"));    
+        List<Integer> result = new ArrayList<>();
+        Node<T, Integer> node = root;
+
+        while(!node.isLeaf){
+            int idx = 0;
+            while(idx < node.keys.size() && key.compareTo(node.keys.get(idx)) > 0){
+                idx++;
+            }
+            node = node.getChild(idx);
+        }
+
+        while(node != null){
+            for(int i=0; i < node.keys.size() ; i++){
+                T key = node.keys.get(i);
+
+                boolean afterStart = (key.compareTo(startkey) > 0) || (startInclusive && key.compareTo(startKey) ==0);
+                boolean beforeEnd  = (key.compareTo(endKey) <0) || (endInclusive && key.compareTo(endKey) ==0);
+            
+                if(afterStart && beforeEnd){
+                    result.add(node.values.get(i));
+                }
+                else if(key.compareTo(endKey) > 0){
+                    return result;
+                }
+            }
+            node = node.getNext();
+        }
         return null;
     }
 
@@ -81,6 +127,20 @@ public class BPlusTreeIndex<T> implements Index<T> {
      */
     public List<T> getAllKeys() {
         // TODO: Implement me!
+
+        logger.info("Collecting all keys in sorted order");
+        List<T> allKeys = new ArrayList<>();
+        Node<T,Integer> node = root;
+
+        while(!node.isLeaf){
+            node = node.getChild(0);
+        }
+
+        while(node!=null){
+            allKeys.addAll(node.keys);
+            node = node.getNext();
+        }
+        return allKeys;
         return null;
     }
 
@@ -90,6 +150,17 @@ public class BPlusTreeIndex<T> implements Index<T> {
      */
     public int getHeight() {
         // TODO: Implement me!
+
+        logger.info("Computing height of the B+ Tree");
+
+        int height = 0;
+        Node<T,Integer> node = root;
+
+        while(!node.isLeaf){
+            node = node.getChild(0);
+            height++;
+        }
+        return height;
         return 0;
     }
 
