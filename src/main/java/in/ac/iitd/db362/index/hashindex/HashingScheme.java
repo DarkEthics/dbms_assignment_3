@@ -34,4 +34,14 @@ public class HashingScheme {
     }
 
 
+    /**
+     * For quick testing
+     * @param args
+     */
+    public static void main(String[] args) {
+        int index = getDirectoryIndex(8, 1);
+        System.out.println(index);
+
+    }
+
 }
