@@ -97,6 +97,14 @@ public class ExtendibleHashing<T> implements Index<T> {
     }
 
 
+    /**
+     * Note: Do not remove this function!
+     * @return
+     */
+    public Bucket<T>[] getBuckets() {
+        return directory;
+    }
+
     public void printTable() {
         // TODO: You don't have to, but its good to print for small scale debugging
     }

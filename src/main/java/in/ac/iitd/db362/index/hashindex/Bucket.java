@@ -30,4 +30,24 @@ public class Bucket<T> {
 
         this.next = null;
     }
+
+    public int getLocalDepth() {
+        return localDepth;
+    }
+
+    public T[] getKeys() {
+        return keys;
+    }
+
+    public int[] getValues() {
+        return values;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public Bucket<T> getNext() {
+        return next;
+    }
 }
